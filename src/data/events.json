@@ -1,0 +1,134 @@
+{
+  "activities": [
+    {
+      "id": "2026-08-28-kickoff-brunch",
+      "title": "Kickoff Brunch of Unemployment",
+      "date": "2026-08-28",
+      "startTime": "10:30",
+      "endTime": "12:30",
+      "category": "food",
+      "location": {
+        "name": "Portage Bay Cafe",
+        "mapsUrl": "https://maps.google.com/?q=Portage+Bay+Cafe+Roosevelt"
+      },
+      "notes": "Celebrating my newfound freedom with pancakes. You pay your own way, I'm unemployed.",
+      "maxAttendees": 6,
+      "formPrefillLabel": "Aug 28 - Kickoff Brunch of Unemployment"
+    },
+    {
+      "id": "2026-09-02-coffee-walk",
+      "title": "Slow Morning Coffee Walk",
+      "date": "2026-09-02",
+      "startTime": "09:00",
+      "endTime": "10:30",
+      "category": "outdoors",
+      "location": {
+        "name": "Green Lake loop",
+        "mapsUrl": "https://maps.google.com/?q=Green+Lake+Park+Seattle"
+      },
+      "notes": "One lap of Green Lake at gossip pace.",
+      "formPrefillLabel": "Sep 2 - Slow Morning Coffee Walk"
+    },
+    {
+      "id": "2026-09-02-trivia-night",
+      "title": "Trivia Night",
+      "date": "2026-09-02",
+      "startTime": "19:00",
+      "endTime": "21:30",
+      "category": "games",
+      "location": {
+        "name": "The Walrus and the Carpenter",
+        "mapsUrl": "https://maps.google.com/?q=The+Walrus+and+the+Carpenter+Seattle"
+      },
+      "notes": "Team name ideas welcome. My only contribution so far is 'The Severance Package'.",
+      "maxAttendees": 4,
+      "formPrefillLabel": "Sep 2 - Trivia Night"
+    },
+    {
+      "id": "2026-09-05-discovery-park-hike",
+      "title": "Discovery Park Hike",
+      "date": "2026-09-05",
+      "startTime": "09:30",
+      "endTime": "13:00",
+      "category": "outdoors",
+      "location": {
+        "name": "Discovery Park lighthouse loop",
+        "mapsUrl": "https://maps.google.com/?q=Discovery+Park+Seattle"
+      },
+      "notes": "About 5 miles, beach stop halfway. Bring water and complaints about the hill.",
+      "maxAttendees": 4,
+      "formPrefillLabel": "Sep 5 - Discovery Park Hike"
+    },
+    {
+      "id": "2026-09-08-potluck-board-games",
+      "title": "Potluck & Board Games",
+      "date": "2026-09-08",
+      "startTime": "18:00",
+      "endTime": "22:00",
+      "category": "games",
+      "location": {
+        "name": "My place",
+        "mapsUrl": ""
+      },
+      "notes": "Bring a dish or a game, ideally both. Catan disputes are settled by arm wrestling.",
+      "formPrefillLabel": "Sep 8 - Potluck & Board Games"
+    },
+    {
+      "id": "2026-09-12-flea-market-crawl",
+      "title": "Flea Market Crawl",
+      "date": "2026-09-12",
+      "startTime": "10:00",
+      "endTime": "13:00",
+      "category": "culture",
+      "location": {
+        "name": "Georgetown Trailer Park Mall",
+        "mapsUrl": "https://maps.google.com/?q=Georgetown+Trailer+Park+Mall"
+      },
+      "notes": "Haggling demonstration included free of charge.",
+      "formPrefillLabel": "Sep 12 - Flea Market Crawl"
+    },
+    {
+      "id": "2026-09-12-pasta-night",
+      "title": "Homemade Pasta Night",
+      "date": "2026-09-12",
+      "startTime": "18:30",
+      "endTime": "21:30",
+      "category": "food",
+      "location": {
+        "name": "My place",
+        "mapsUrl": ""
+      },
+      "notes": "We make it from scratch, we eat it in ten minutes.",
+      "maxAttendees": 5,
+      "formPrefillLabel": "Sep 12 - Homemade Pasta Night"
+    },
+    {
+      "id": "2026-09-16-museum-free-day",
+      "title": "Museum Free-First-Thursday",
+      "date": "2026-09-16",
+      "startTime": "17:00",
+      "endTime": "20:00",
+      "category": "culture",
+      "location": {
+        "name": "Seattle Art Museum",
+        "mapsUrl": "https://maps.google.com/?q=Seattle+Art+Museum"
+      },
+      "notes": "Free entry, expensive gift shop. We look at art and say 'interesting' a lot.",
+      "formPrefillLabel": "Sep 16 - Museum Free-First-Thursday"
+    },
+    {
+      "id": "2026-09-20-picnic-frisbee",
+      "title": "Picnic & Frisbee",
+      "date": "2026-09-20",
+      "startTime": "12:00",
+      "endTime": "16:00",
+      "category": "chill",
+      "location": {
+        "name": "Volunteer Park",
+        "mapsUrl": "https://maps.google.com/?q=Volunteer+Park+Seattle"
+      },
+      "notes": "Snacks provided. Athletic ability not required, nor expected.",
+      "formPrefillLabel": "Sep 20 - Picnic & Frisbee"
+    }
+  ]
+}

@@ -1,0 +1,398 @@
+---
+import events from "../data/events.json";
+import formConfig from "../data/form-config.json";
+
+type Activity = {
+  id: string;
+  title: string;
+  date: string;
+  startTime?: string;
+  endTime?: string;
+  category?: string;
+  location?: { name?: string; mapsUrl?: string };
+  notes?: string;
+  maxAttendees?: number;
+  attendeesFull?: boolean;
+  formPrefillLabel?: string;
+};
+
+const all = events.activities as Activity[];
+const sorted = [...all].sort(
+  (a, b) =>
+    a.date.localeCompare(b.date) ||
+    (a.startTime ?? "99:99").localeCompare(b.startTime ?? "99:99")
+);
+
+const days: { date: string; acts: Activity[] }[] = [];
+for (const act of sorted) {
+  let day = days.find((d) => d.date === act.date);
+  if (!day) {
+    day = { date: act.date, acts: [] };
+    days.push(day);
+  }
+  day.acts.push(act);
+}
+
+function formatDay(iso: string): string {
+  return new Date(`${iso}T00:00:00`).toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+  });
+}
+
+const baseUrl = import.meta.env.BASE_URL.endsWith("/")
+  ? import.meta.env.BASE_URL
+  : `${import.meta.env.BASE_URL}/`;
+
+function joinUrl(act: Activity): string {
+  const base = (formConfig.formUrl ?? "").trim();
+  if (!base) return "";
+  const params = new URLSearchParams();
+  params.set("usp", "pp_url");
+  const entryId = String(formConfig.activityEntryId ?? "").trim();
+  if (entryId && act.formPrefillLabel) {
+    params.set(`entry.${entryId}`, act.formPrefillLabel);
+  }
+  return `${base}?${params.toString()}`;
+}
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Everything I'm planning while unemployed - come join!"
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href={`${baseUrl}favicon.svg`}
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <title>The Unemployment Calendar</title>
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <header>
+      <p class="kicker">now accepting applications for hangout buddies</p>
+      <h1>The Unemployment Calendar</h1>
+      <p class="tagline">
+        Everything I'm up to now that no one can schedule meetings at me.
+        Open an event, put your name down, show up.
+      </p>
+    </header>
+
+    <main>
+      {
+        days.length === 0 && (
+          <p class="empty">
+            Nothing scheduled yet. Suspiciously responsible of me.
+          </p>
+        )
+      }
+      {days.map(({ date, acts }) => (
+        <section class="day" data-date={date}>
+          <h2>
+            {formatDay(date)}
+            <span class="relbadge" hidden></span>
+          </h2>
+          <div class="stack">
+            {acts.map((act) => (
+              <article class:list={["card", act.category ?? "default"]}>
+                <div class="chips">
+                  {act.startTime && (
+                    <span class="chip time">
+                      {act.endTime ? `${act.startTime}\u2013${act.endTime}` : act.startTime}
+                    </span>
+                  )}
+                  {act.category && <span class="chip cat">{act.category}</span>}
+                  {act.maxAttendees && !act.attendeesFull && (
+                    <span class="chip cap">max {act.maxAttendees}</span>
+                  )}
+                  {act.attendeesFull && <span class="chip full">full</span>}
+                </div>
+                <h3>{act.title}</h3>
+                {act.location?.name && (
+                  <p class="loc">
+                    {act.location.mapsUrl ? (
+                      <a href={act.location.mapsUrl} target="_blank" rel="noopener">
+                        {act.location.name} &#8599;
+                      </a>
+                    ) : (
+                      act.location.name
+                    )}
+                  </p>
+                )}
+                {act.notes && <p class="notes">{act.notes}</p>}
+                <details class="rsvp">
+                  <summary>Who's coming?</summary>
+                  <div class="rsvp-body">
+                    {joinUrl(act) ? (
+                      <a
+                        class="join-btn"
+                        href={joinUrl(act)}
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        Count me in
+                      </a>
+                    ) : (
+                      <p class="soon">
+                        RSVP form coming soon - text me and I'll pencil you in.
+                      </p>
+                    )}
+                    {act.attendeesFull && (
+                      <p class="soon">This one's full, but you can try bribery.</p>
+                    )}
+                  </div>
+                </details>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+    </main>
+
+    <footer>
+      <p>built with an abundance of free time - updated whenever I feel like it</p>
+    </footer>
+
+    <script>
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const tomorrow = new Date(today);
+      tomorrow.setDate(tomorrow.getDate() + 1);
+
+      document.querySelectorAll<HTMLElement>(".day").forEach((day) => {
+        const raw = day.dataset.date ?? "";
+        const d = new Date(`${raw}T00:00:00`);
+        if (Number.isNaN(d.getTime())) return;
+
+        if (d < today) {
+          day.classList.add("past");
+          return;
+        }
+        const badge = day.querySelector(".relbadge");
+        if (!badge) return;
+        if (d.getTime() === today.getTime()) {
+          badge.hidden = false;
+          badge.textContent = "today";
+        } else if (d.getTime() === tomorrow.getTime()) {
+          badge.hidden = false;
+          badge.textContent = "tomorrow";
+        }
+      });
+    </script>
+
+    <style>
+      :root {
+        --bg: #fff6ea;
+        --card: #ffffff;
+        --ink: #33302b;
+        --muted: #8a8378;
+        --accent: #ff6b6b;
+        --line: #efe2cf;
+        --c-outdoors: #2fb673;
+        --c-food: #f59f2d;
+        --c-games: #9b7bff;
+        --c-culture: #4d96ff;
+        --c-chill: #f472b6;
+        --c-default: #a8a29e;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #191724;
+          --card: #242138;
+          --ink: #efecff;
+          --muted: #9c96b3;
+          --line: #343052;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: "Nunito", system-ui, sans-serif;
+        line-height: 1.55;
+      }
+      header,
+      main,
+      footer {
+        width: min(640px, 92vw);
+        margin-inline: auto;
+      }
+      header {
+        padding: 3rem 0 0.5rem;
+        text-align: center;
+      }
+      .kicker {
+        display: inline-block;
+        margin: 0;
+        font-size: 0.78rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--accent);
+        transform: rotate(-1.5deg);
+      }
+      h1 {
+        margin: 0.15em 0;
+        font-family: "Fredoka", sans-serif;
+        font-size: clamp(2rem, 7vw, 3.1rem);
+        letter-spacing: -0.02em;
+      }
+      .tagline {
+        margin: 0 auto;
+        max-width: 46ch;
+        color: var(--muted);
+      }
+      .day h2 {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+        margin: 2.2rem 0 0.8rem;
+        font-family: "Fredoka", sans-serif;
+        font-size: 1.3rem;
+      }
+      .relbadge {
+        background: var(--accent);
+        color: #fff;
+        font-size: 0.68rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.14rem 0.65rem;
+        border-radius: 999px;
+        transform: rotate(-2deg);
+      }
+      .day.past {
+        opacity: 0.42;
+        filter: saturate(0.5);
+      }
+      .stack {
+        display: flex;
+        flex-direction: column;
+        gap: 0.95rem;
+      }
+      .card {
+        --cat-color: var(--c-default);
+        background: var(--card);
+        border-radius: 18px;
+        padding: 1.05rem 1.25rem 1rem;
+        border-left: 7px solid var(--cat-color);
+        box-shadow: 0 2px 12px rgba(30, 20, 10, 0.07);
+      }
+      .card.outdoors { --cat-color: var(--c-outdoors); }
+      .card.food     { --cat-color: var(--c-food); }
+      .card.games    { --cat-color: var(--c-games); }
+      .card.culture  { --cat-color: var(--c-culture); }
+      .card.chill    { --cat-color: var(--c-chill); }
+      .chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-bottom: 0.45rem;
+      }
+      .chip {
+        font-family: "Fredoka", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.16rem 0.65rem;
+        border-radius: 999px;
+        background: color-mix(in srgb, var(--cat-color) 16%, transparent);
+        color: var(--cat-color);
+      }
+      .chip.time {
+        background: var(--line);
+        color: var(--ink);
+      }
+      .chip.full {
+        background: var(--accent);
+        color: #fff;
+        transform: rotate(-2deg);
+      }
+      .card h3 {
+        margin: 0.1rem 0 0.2rem;
+        font-size: 1.18rem;
+      }
+      .loc {
+        margin: 0.1rem 0;
+        font-weight: 600;
+      }
+      .loc a {
+        color: var(--ink);
+        text-decoration: underline dotted var(--cat-color);
+        text-underline-offset: 3px;
+      }
+      .notes {
+        margin: 0.25rem 0 0.6rem;
+        color: var(--muted);
+        font-size: 0.95rem;
+      }
+      .rsvp summary {
+        cursor: pointer;
+        font-weight: 800;
+        color: var(--accent);
+        user-select: none;
+      }
+      .rsvp summary::-webkit-details-marker {
+        display: none;
+      }
+      .rsvp summary::before {
+        content: "+ ";
+        font-family: "Fredoka", sans-serif;
+      }
+      .rsvp[open] summary::before {
+        content: "\2212 ";
+      }
+      .rsvp-body {
+        padding-top: 0.6rem;
+      }
+      .join-btn {
+        display: inline-block;
+        background: var(--accent);
+        color: #fff;
+        text-decoration: none;
+        font-family: "Fredoka", sans-serif;
+        font-weight: 600;
+        padding: 0.55rem 1.4rem;
+        border-radius: 999px;
+        transform: rotate(-1deg);
+        transition: transform 0.15s ease;
+      }
+      .join-btn:hover {
+        transform: rotate(0deg) scale(1.04);
+      }
+      .soon {
+        color: var(--muted);
+        font-style: italic;
+        margin: 0.2rem 0;
+      }
+      .empty {
+        text-align: center;
+        color: var(--muted);
+        padding: 3rem 0;
+      }
+      footer {
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.85rem;
+        padding: 2.5rem 0 3rem;
+      }
+    </style>
+  </body>
+</html>
