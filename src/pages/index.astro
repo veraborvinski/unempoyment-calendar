@@ -33,12 +33,12 @@ for (const act of sorted) {
   day.acts.push(act);
 }
 
-function formatDay(iso: string): string {
-  return new Date(`${iso}T00:00:00`).toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
+function formatDay(iso: string): { dow: string; date: string } {
+  const d = new Date(`${iso}T00:00:00`);
+  return {
+    dow: d.toLocaleDateString("en-US", { weekday: "long" }).toUpperCase(),
+    date: d.toLocaleDateString("en-US", { month: "short", day: "numeric" }).toUpperCase(),
+  };
 }
 
 const baseUrl = import.meta.env.BASE_URL.endsWith("/")
@@ -65,7 +65,7 @@ function joinUrl(act: Activity): string {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="Everything I'm planning while unemployed - come join!"
+      content="One unemployed person's entire month, printed as the loudest show flyer in town. Join her."
     />
     <link
       rel="icon"
@@ -75,86 +75,124 @@ function joinUrl(act: Activity): string {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Archivo:wght@400;600;700;900&family=Courier+Prime:wght@400;700&display=swap"
       rel="stylesheet"
     />
-    <title>The Unemployment Calendar</title>
+    <title>The Unemployment Calendar - Live This Month</title>
     <meta name="generator" content={Astro.generator} />
   </head>
   <body>
-    <header>
-      <p class="kicker">now accepting applications for hangout buddies</p>
-      <h1>The Unemployment Calendar</h1>
-      <p class="tagline">
-        Everything I'm up to now that no one can schedule meetings at me.
-        Open an event, put your name down, show up.
+    <header class="bill-top">
+      <h1 class="masthead">
+        <span class="line" data-text="THE">THE</span>
+        <span class="line" data-text="UNEMPLOYMENT">UNEMPLOYMENT</span>
+        <span class="line" data-text="CALENDAR">CALENDAR</span>
+      </h1>
+      <p class="allages">
+        ONE PERSON &middot; THIRTY DAYS OFF &middot; ALL AGES &middot; FREE
+        ADMISSION &middot; NO DRESS CODE &middot; DOORS WHENEVER
+      </p>
+      <p class="standfirst">
+        Now that no office owns my weekdays, I'm doing everything. Below is the
+        full tour. Find a show, tear a stub, show up.
       </p>
     </header>
 
     <main>
       {
         days.length === 0 && (
-          <p class="empty">
-            Nothing scheduled yet. Suspiciously responsible of me.
-          </p>
+          <div class="empty-box">
+            <h2>CANCELLED?</h2>
+            <p>
+              Nothing scheduled yet. Even the flyer is embarrassed. Check back
+              soon.
+            </p>
+          </div>
         )
       }
-      {days.map(({ date, acts }) => (
+      {days.map(({ date, acts }, dayIndex) => (
         <section class="day" data-date={date}>
-          <h2>
-            {formatDay(date)}
+          <div class="perf" aria-hidden="true"></div>
+          <h2 class="day-head">
+            <span class="dow">{formatDay(date).dow}</span>
+            <span class="date-slab">{formatDay(date).date}</span>
             <span class="relbadge" hidden></span>
           </h2>
           <div class="stack">
-            {acts.map((act) => (
-              <article class:list={["card", act.category ?? "default"]}>
-                <div class="chips">
-                  {act.startTime && (
-                    <span class="chip time">
-                      {act.endTime ? `${act.startTime}\u2013${act.endTime}` : act.startTime}
-                    </span>
+            {acts.map((act, i) => (
+              <article
+                class:list={["act", act.category ?? "default", `tilt-${(i + dayIndex) % 2}`]}
+              >
+                <header class="act-top">
+                  <span class="stage-time">
+                    {act.startTime ?? "TBA"}
+                    {act.endTime && <span class="thru">-{act.endTime}</span>}
+                  </span>
+                  {act.category && (
+                    <span class="stamp cat">{act.category}</span>
                   )}
-                  {act.category && <span class="chip cat">{act.category}</span>}
-                  {act.maxAttendees && !act.attendeesFull && (
-                    <span class="chip cap">max {act.maxAttendees}</span>
-                  )}
-                  {act.attendeesFull && <span class="chip full">full</span>}
-                </div>
-                <h3>{act.title}</h3>
+                </header>
+                <h3 class="act-title">{act.title}</h3>
                 {act.location?.name && (
-                  <p class="loc">
+                  <p class="venue">
                     {act.location.mapsUrl ? (
-                      <a href={act.location.mapsUrl} target="_blank" rel="noopener">
-                        {act.location.name} &#8599;
+                      <a
+                        href={act.location.mapsUrl}
+                        target="_blank"
+                        rel="noopener"
+                      >
+                        {act.location.name}
+                        <svg
+                          class="ext"
+                          viewBox="0 0 16 16"
+                          aria-hidden="true"
+                        >
+                          <path d="M4 12 12 4M6 4h6v6" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" />
+                        </svg>
                       </a>
                     ) : (
                       act.location.name
                     )}
                   </p>
                 )}
-                {act.notes && <p class="notes">{act.notes}</p>}
-                <details class="rsvp">
-                  <summary>Who's coming?</summary>
-                  <div class="rsvp-body">
+                {act.notes && <p class="fineprint">{act.notes}</p>}
+                <footer class="act-foot">
+                  {act.maxAttendees && !act.attendeesFull && (
+                    <span class="cap">ROOM FOR {act.maxAttendees}</span>
+                  )}
+                  <div class="stub-row">
                     {joinUrl(act) ? (
                       <a
-                        class="join-btn"
+                        class="stub"
                         href={joinUrl(act)}
                         target="_blank"
                         rel="noopener"
                       >
-                        Count me in
+                        <svg class="scissors-sm" viewBox="0 0 20 20" aria-hidden="true">
+                          <circle cx="5" cy="7" r="2.4" fill="none" stroke-width="2" />
+                          <circle cx="5" cy="14" r="2.4" fill="none" stroke-width="2" />
+                          <path d="M7.2 8.4 17 15M7.2 12.6 17 6" fill="none" stroke-width="2" stroke-linecap="round" />
+                        </svg>
+                        COUNT ME IN
                       </a>
                     ) : (
-                      <p class="soon">
-                        RSVP form coming soon - text me and I'll pencil you in.
+                      <p class="nostub">
+                        Box office opens soon - text me and I'll pencil you
+                        in.
                       </p>
                     )}
                     {act.attendeesFull && (
-                      <p class="soon">This one's full, but you can try bribery.</p>
+                      <p class="nostub">
+                        Sold out, but you can try bribery at the door.
+                      </p>
                     )}
                   </div>
-                </details>
+                  {act.attendeesFull && (
+                    <span class="soldout" aria-label="This event is full">
+                      SOLD OUT
+                    </span>
+                  )}
+                </footer>
               </article>
             ))}
           </div>
@@ -162,8 +200,11 @@ function joinUrl(act: Activity): string {
       ))}
     </main>
 
-    <footer>
-      <p>built with an abundance of free time - updated whenever I feel like it</p>
+    <footer class="colophon">
+      <p>
+        PRINTED ON 100% RECYCLED FREE TIME &middot; VOL. 1 &middot; NO REFUNDS
+        &middot; Rain or shine
+      </p>
     </footer>
 
     <script>
@@ -185,213 +226,466 @@ function joinUrl(act: Activity): string {
         if (!badge) return;
         if (d.getTime() === today.getTime()) {
           badge.hidden = false;
-          badge.textContent = "today";
+          badge.textContent = "TODAY";
         } else if (d.getTime() === tomorrow.getTime()) {
           badge.hidden = false;
-          badge.textContent = "tomorrow";
+          badge.textContent = "TOMORROW";
         }
       });
     </script>
 
     <style>
       :root {
-        --bg: #fff6ea;
-        --card: #ffffff;
-        --ink: #33302b;
-        --muted: #8a8378;
-        --accent: #ff6b6b;
-        --line: #efe2cf;
-        --c-outdoors: #2fb673;
-        --c-food: #f59f2d;
-        --c-games: #9b7bff;
-        --c-culture: #4d96ff;
-        --c-chill: #f472b6;
-        --c-default: #a8a29e;
+        --paper: #f3ead8;
+        --ink: #211b12;
+        --ink-muted: #4a4238;
+        --red: #e8452c;
+        --yellow: #f5d64c;
+        --blue: #1b2a52;
+        --paper-mid: #e8ddc5;
       }
-      @media (prefers-color-scheme: dark) {
-        :root {
-          --bg: #191724;
-          --card: #242138;
-          --ink: #efecff;
-          --muted: #9c96b3;
-          --line: #343052;
-        }
-      }
+
       * {
         box-sizing: border-box;
       }
+
+      html {
+        background: var(--paper);
+      }
+
       body {
         margin: 0;
-        background: var(--bg);
         color: var(--ink);
-        font-family: "Nunito", system-ui, sans-serif;
-        line-height: 1.55;
+        font-family: "Archivo", system-ui, sans-serif;
+        line-height: 1.5;
+        background-image: radial-gradient(
+            rgba(33, 27, 18, 0.16) 2.4px,
+            transparent 2.6px
+          );
+        background-size: 8px 8px;
       }
-      header,
+
+      ::selection {
+        background: var(--yellow);
+        color: var(--ink);
+      }
+
+      :focus-visible {
+        outline: 3px solid var(--red);
+        outline-offset: 3px;
+      }
+
       main,
-      footer {
-        width: min(640px, 92vw);
+      footer.colophon {
+        width: min(680px, 94vw);
         margin-inline: auto;
       }
-      header {
-        padding: 3rem 0 0.5rem;
+
+      /* ---- bill-top: full bleed ---- */
+
+      .bill-top {
+        width: 100vw;
+        max-width: none;
+        margin-left: calc(50% - 50vw);
+        padding-inline: max(3vw, calc((100vw - 680px) / 2));
+        padding-top: clamp(1.6rem, 5vw, 3rem);
         text-align: center;
+        box-sizing: border-box;
       }
-      .kicker {
-        display: inline-block;
-        margin: 0;
-        font-size: 0.78rem;
-        font-weight: 800;
+
+      .masthead {
+        display: grid;
+        gap: 0;
+        margin: 0 0 1.1rem;
+        font-family: "Alfa Slab One", serif;
+        font-size: clamp(2.6rem, 11vw, 5.4rem);
+        line-height: 0.96;
+        letter-spacing: 0.01em;
         text-transform: uppercase;
-        letter-spacing: 0.12em;
-        color: var(--accent);
-        transform: rotate(-1.5deg);
       }
-      h1 {
-        margin: 0.15em 0;
-        font-family: "Fredoka", sans-serif;
-        font-size: clamp(2rem, 7vw, 3.1rem);
-        letter-spacing: -0.02em;
+
+      .masthead .line {
+        position: relative;
+        color: var(--red);
+        transform: rotate(-1deg);
       }
-      .tagline {
-        margin: 0 auto;
+
+      .masthead .line:nth-child(2) {
+        transform: rotate(0.7deg);
+        font-size: 0.62em;
+      }
+
+      .masthead .line:nth-child(3) {
+        transform: rotate(-0.5deg);
+      }
+
+      .masthead .line::before {
+        content: attr(data-text);
+        position: absolute;
+        inset: 0;
+        color: var(--blue);
+        transform: translate(-0.045em, 0.05em);
+        opacity: 0.85;
+        mix-blend-mode: multiply;
+        z-index: -1;
+      }
+
+      .allages {
+        display: block;
+        margin: 0 0 0 0;
+        border: 2px solid var(--ink);
+        border-top-width: 8px;
+        border-bottom-width: 8px;
+        padding: 0.35rem 0.4rem;
+        font-family: "Courier Prime", monospace;
+        font-weight: 700;
+        font-size: clamp(0.66rem, 2vw, 0.8rem);
+        letter-spacing: 0.06em;
+      }
+
+      .standfirst {
         max-width: 46ch;
-        color: var(--muted);
+        margin: 1.1rem auto 0;
+        font-size: 1.02rem;
+        font-weight: 600;
       }
-      .day h2 {
+
+      /* ---- days: continuous bill strips ---- */
+
+      .perf {
+        height: 26px;
+        margin-top: 2.6rem;
+        position: relative;
+      }
+
+      .perf::before {
+        content: "";
+        position: absolute;
+        inset-inline: 0;
+        top: 50%;
+        border-top: 4px dashed rgba(33, 27, 18, 0.72);
+      }
+
+      .day-head {
         display: flex;
         align-items: center;
-        gap: 0.6rem;
-        margin: 2.2rem 0 0.8rem;
-        font-family: "Fredoka", sans-serif;
-        font-size: 1.3rem;
+        flex-wrap: wrap;
+        gap: 0.55rem;
+        margin: 0.9rem 0 1rem;
+        transform: rotate(-0.6deg);
       }
-      .relbadge {
-        background: var(--accent);
-        color: #fff;
-        font-size: 0.68rem;
-        font-weight: 700;
+
+      .day-head .dow {
+        font-family: "Alfa Slab One", serif;
+        font-size: clamp(1.25rem, 4.5vw, 1.7rem);
         text-transform: uppercase;
-        letter-spacing: 0.08em;
-        padding: 0.14rem 0.65rem;
-        border-radius: 999px;
+        letter-spacing: 0.03em;
+        margin-right: auto;
+      }
+
+      .date-slab {
+        background: var(--yellow);
+        border: 2px solid var(--ink);
+        padding: 0.08em 0.45em;
+        font-family: "Courier Prime", monospace;
+        font-weight: 700;
+        font-size: 1rem;
+        letter-spacing: 0.04em;
+        transform: rotate(1.2deg);
+        box-shadow: 0 5px 16px rgba(33, 27, 18, 0.18);
+      }
+
+      .relbadge {
+        background: var(--red);
+        color: var(--paper);
+        font-family: "Courier Prime", monospace;
+        font-weight: 700;
+        font-size: 0.72rem;
+        letter-spacing: 0.09em;
+        padding: 0.18rem 0.6rem;
         transform: rotate(-2deg);
       }
+
       .day.past {
-        opacity: 0.42;
-        filter: saturate(0.5);
+        opacity: 0.45;
+        filter: saturate(0.4) contrast(0.92);
       }
+
+      .day.past .day-head::after {
+        content: "PAST SHOW";
+        font-family: "Alfa Slab One", serif;
+        color: transparent;
+        -webkit-text-stroke: 1.5px var(--ink-muted);
+        font-size: 1rem;
+        letter-spacing: 0.12em;
+        align-self: center;
+      }
+
+      /* ---- act strips: single elevation, continuous ---- */
+
       .stack {
         display: flex;
         flex-direction: column;
-        gap: 0.95rem;
+        gap: 0;
       }
-      .card {
-        --cat-color: var(--c-default);
-        background: var(--card);
-        border-radius: 18px;
-        padding: 1.05rem 1.25rem 1rem;
-        border-left: 7px solid var(--cat-color);
-        box-shadow: 0 2px 12px rgba(30, 20, 10, 0.07);
+
+      .act {
+        position: relative;
+        border: 2.5px solid var(--ink);
+        background-color: var(--paper);
+        background-image: radial-gradient(
+          rgba(33, 27, 18, 0.16) 2.4px,
+          transparent 2.6px
+        );
+        background-size: 8px 8px;
+        padding: 0.95rem 1.1rem 1rem;
+        margin-top: -2.5px;
       }
-      .card.outdoors { --cat-color: var(--c-outdoors); }
-      .card.food     { --cat-color: var(--c-food); }
-      .card.games    { --cat-color: var(--c-games); }
-      .card.culture  { --cat-color: var(--c-culture); }
-      .card.chill    { --cat-color: var(--c-chill); }
-      .chips {
+
+      .act:first-child {
+        margin-top: 0;
+      }
+
+      .act.tilt-0 {
+        transform: rotate(-0.45deg);
+      }
+
+      .act.tilt-1 {
+        transform: rotate(0.4deg);
+      }
+
+      .act-top {
         display: flex;
-        flex-wrap: wrap;
-        gap: 0.4rem;
-        margin-bottom: 0.45rem;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 0.6rem;
       }
-      .chip {
-        font-family: "Fredoka", sans-serif;
-        font-size: 0.7rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding: 0.16rem 0.65rem;
-        border-radius: 999px;
-        background: color-mix(in srgb, var(--cat-color) 16%, transparent);
-        color: var(--cat-color);
-      }
-      .chip.time {
-        background: var(--line);
-        color: var(--ink);
-      }
-      .chip.full {
-        background: var(--accent);
-        color: #fff;
-        transform: rotate(-2deg);
-      }
-      .card h3 {
-        margin: 0.1rem 0 0.2rem;
+
+      .stage-time {
+        font-family: "Courier Prime", monospace;
+        font-weight: 700;
         font-size: 1.18rem;
+        letter-spacing: 0.02em;
+        font-variant-numeric: tabular-nums;
       }
-      .loc {
-        margin: 0.1rem 0;
-        font-weight: 600;
+
+      .stage-time .thru {
+        font-size: 0.85rem;
+        color: var(--ink-muted);
       }
-      .loc a {
+
+      .stamp {
+        font-family: "Courier Prime", monospace;
+        font-weight: 700;
+        font-size: 0.72rem;
+        letter-spacing: 0.11em;
+        text-transform: uppercase;
+        border: 2px solid var(--ink);
+        padding: 0.1rem 0.5rem;
+        transform: rotate(1.6deg);
+      }
+
+      .cat {
+        background: var(--yellow);
         color: var(--ink);
-        text-decoration: underline dotted var(--cat-color);
+      }
+
+      .act.food .stamp.cat {
+        background: var(--red);
+        color: var(--paper);
+      }
+
+      .act.outdoors .stamp.cat,
+      .act.culture .stamp.cat {
+        background: var(--blue);
+        color: var(--paper);
+      }
+
+      .act-title {
+        margin: 0.35rem 0 0.15rem;
+        font-family: "Alfa Slab One", serif;
+        font-weight: 400;
+        font-size: clamp(1.35rem, 5vw, 1.8rem);
+        line-height: 1.08;
+        text-transform: uppercase;
+        letter-spacing: 0.005em;
+      }
+
+      .venue {
+        margin: 0.15rem 0 0.3rem;
+        font-weight: 700;
+        font-size: 0.98rem;
+      }
+
+      .venue a {
+        color: var(--ink);
+        text-decoration: underline dotted var(--red);
+        text-decoration-thickness: 2px;
         text-underline-offset: 3px;
       }
-      .notes {
-        margin: 0.25rem 0 0.6rem;
-        color: var(--muted);
-        font-size: 0.95rem;
+
+      .venue a:hover {
+        background: var(--yellow);
       }
-      .rsvp summary {
-        cursor: pointer;
-        font-weight: 800;
-        color: var(--accent);
-        user-select: none;
+
+      .ext {
+        width: 0.72em;
+        height: 0.72em;
+        stroke: currentColor;
+        vertical-align: baseline;
+        margin-left: 0.15em;
       }
-      .rsvp summary::-webkit-details-marker {
-        display: none;
+
+      .fineprint {
+        margin: 0.2rem 0 0.55rem;
+        font-family: "Courier Prime", monospace;
+        font-size: 0.86rem;
+        color: var(--ink-muted);
       }
-      .rsvp summary::before {
-        content: "+ ";
-        font-family: "Fredoka", sans-serif;
+
+      .act-foot {
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.7rem;
+        margin-top: 0.35rem;
       }
-      .rsvp[open] summary::before {
-        content: "\2212 ";
+
+      .cap {
+        font-family: "Courier Prime", monospace;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        color: var(--blue);
       }
-      .rsvp-body {
-        padding-top: 0.6rem;
+
+      .stub-row {
+        flex: 1 1 100%;
+        padding-top: 0.15rem;
       }
-      .join-btn {
-        display: inline-block;
-        background: var(--accent);
-        color: #fff;
+
+      .stub {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.55rem;
+        position: relative;
+        background: var(--yellow);
+        color: var(--ink);
+        border: 2.5px solid var(--ink);
+        border-left: none;
+        font-family: "Archivo", sans-serif;
+        font-weight: 900;
+        font-size: 1.05rem;
+        letter-spacing: 0.05em;
         text-decoration: none;
-        font-family: "Fredoka", sans-serif;
-        font-weight: 600;
-        padding: 0.55rem 1.4rem;
-        border-radius: 999px;
-        transform: rotate(-1deg);
-        transition: transform 0.15s ease;
+        padding: 0.6rem 1.5rem 0.6rem 1.9rem;
+        box-shadow: 0 6px 18px rgba(33, 27, 18, 0.18);
+        transform: rotate(-0.8deg);
+        transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
       }
-      .join-btn:hover {
-        transform: rotate(0deg) scale(1.04);
+
+      .stub::before {
+        content: "";
+        position: absolute;
+        left: 0.75rem;
+        top: 0;
+        bottom: 0;
+        border-left: 2.5px dashed rgba(33, 27, 18, 0.75);
       }
-      .soon {
-        color: var(--muted);
+
+      .stub:hover {
+        transform: rotate(-0.8deg) scale(0.97);
+        box-shadow: 0 3px 10px rgba(33, 27, 18, 0.13);
+        filter: brightness(0.96);
+      }
+
+      .scissors-sm {
+        width: 1.05rem;
+        height: 1.05rem;
+        stroke: var(--red);
+        flex-shrink: 0;
+      }
+
+      .nostub {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        position: relative;
+        background: rgba(245, 214, 76, 0.45);
+        color: var(--ink-muted);
+        border: 2.5px dashed rgba(33, 27, 18, 0.45);
+        border-left: none;
+        font-family: "Courier Prime", monospace;
         font-style: italic;
-        margin: 0.2rem 0;
+        font-size: 0.86rem;
+        padding: 0.5rem 1.1rem 0.5rem 1.5rem;
+        margin: 0.25rem 0 0;
+        transform: rotate(-0.6deg);
       }
-      .empty {
-        text-align: center;
-        color: var(--muted);
-        padding: 3rem 0;
+
+      .nostub::before {
+        content: "";
+        position: absolute;
+        left: 0.7rem;
+        top: 0;
+        bottom: 0;
+        border-left: 2.5px dashed rgba(33, 27, 18, 0.4);
       }
-      footer {
+
+      .soldout {
+        position: absolute;
+        top: 38%;
+        right: 4%;
+        transform: rotate(-14deg);
+        border: 3px solid var(--red);
+        color: var(--red);
+        font-family: "Alfa Slab One", serif;
+        font-size: 1.3rem;
+        letter-spacing: 0.08em;
+        padding: 0.05rem 0.6rem;
+        mix-blend-mode: multiply;
+        pointer-events: none;
+      }
+
+      .empty-box {
+        border: 2.5px solid var(--ink);
+        padding: 2rem;
         text-align: center;
-        color: var(--muted);
-        font-size: 0.85rem;
-        padding: 2.5rem 0 3rem;
+        margin-top: 2rem;
+        transform: rotate(-0.5deg);
+      }
+
+      .empty-box h2 {
+        font-family: "Alfa Slab One", serif;
+        text-transform: uppercase;
+        margin: 0 0 0.4rem;
+      }
+
+      .colophon {
+        margin-top: 3rem;
+        margin-bottom: 2.6rem;
+        border-top: 3px dashed rgba(33, 27, 18, 0.55);
+        padding-top: 0.9rem;
+        text-align: center;
+      }
+
+      .colophon p {
+        margin: 0;
+        font-family: "Courier Prime", monospace;
+        font-size: 0.78rem;
+        letter-spacing: 0.07em;
+        color: var(--ink-muted);
+        text-transform: uppercase;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .stub {
+          transition: none;
+        }
+
+        .stub:hover {
+          transform: rotate(-0.8deg);
+        }
       }
     </style>
   </body>
