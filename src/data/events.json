@@ -1,134 +1,418 @@
 {
   "activities": [
     {
-      "id": "2026-08-28-kickoff-brunch",
-      "title": "Kickoff Brunch of Unemployment",
-      "date": "2026-08-28",
-      "startTime": "10:30",
+      "id": "2026-08-26-yoga-mudchute",
+      "title": "Morning yoga at Mudchute Park",
+      "date": "2026-08-26",
+      "startTime": "08:30",
+      "endTime": "09:30",
+      "category": "chill",
+      "location": {
+        "name": "Mudchute Park (5 min from E14 9WB)",
+        "mapsUrl": "https://maps.google.com/?q=Mudchute+Park+E14"
+      },
+      "notes": "Easy start, short walk from home. Bring mat.",
+      "maxAttendees": 6,
+      "formPrefillLabel": "Aug 26 - Morning yoga at Mudchute"
+    },
+    {
+      "id": "2026-08-26-lunch-danil",
+      "title": "Lunch with Danil",
+      "date": "2026-08-26",
+      "startTime": "11:00",
       "endTime": "12:30",
       "category": "food",
       "location": {
-        "name": "Portage Bay Cafe",
-        "mapsUrl": "https://maps.google.com/?q=Portage+Bay+Cafe+Roosevelt"
+        "name": "Canary Wharf (near E14)",
+        "mapsUrl": "https://maps.google.com/?q=Canary+Wharf"
       },
-      "notes": "Celebrating my newfound freedom with pancakes. You pay your own way, I'm unemployed.",
-      "maxAttendees": 6,
-      "formPrefillLabel": "Aug 28 - Kickoff Brunch of Unemployment"
+      "notes": "From your calendar - kept as is.",
+      "formPrefillLabel": "Aug 26 - Lunch with Danil"
     },
     {
-      "id": "2026-09-02-coffee-walk",
-      "title": "Slow Morning Coffee Walk",
-      "date": "2026-09-02",
-      "startTime": "09:00",
-      "endTime": "10:30",
-      "category": "outdoors",
-      "location": {
-        "name": "Green Lake loop",
-        "mapsUrl": "https://maps.google.com/?q=Green+Lake+Park+Seattle"
-      },
-      "notes": "One lap of Green Lake at gossip pace.",
-      "formPrefillLabel": "Sep 2 - Slow Morning Coffee Walk"
-    },
-    {
-      "id": "2026-09-02-trivia-night",
-      "title": "Trivia Night",
-      "date": "2026-09-02",
-      "startTime": "19:00",
-      "endTime": "21:30",
-      "category": "games",
-      "location": {
-        "name": "The Walrus and the Carpenter",
-        "mapsUrl": "https://maps.google.com/?q=The+Walrus+and+the+Carpenter+Seattle"
-      },
-      "notes": "Team name ideas welcome. My only contribution so far is 'The Severance Package'.",
-      "maxAttendees": 4,
-      "formPrefillLabel": "Sep 2 - Trivia Night"
-    },
-    {
-      "id": "2026-09-05-discovery-park-hike",
-      "title": "Discovery Park Hike",
-      "date": "2026-09-05",
-      "startTime": "09:30",
-      "endTime": "13:00",
-      "category": "outdoors",
-      "location": {
-        "name": "Discovery Park lighthouse loop",
-        "mapsUrl": "https://maps.google.com/?q=Discovery+Park+Seattle"
-      },
-      "notes": "About 5 miles, beach stop halfway. Bring water and complaints about the hill.",
-      "maxAttendees": 4,
-      "formPrefillLabel": "Sep 5 - Discovery Park Hike"
-    },
-    {
-      "id": "2026-09-08-potluck-board-games",
-      "title": "Potluck & Board Games",
-      "date": "2026-09-08",
-      "startTime": "18:00",
-      "endTime": "22:00",
-      "category": "games",
-      "location": {
-        "name": "My place",
-        "mapsUrl": ""
-      },
-      "notes": "Bring a dish or a game, ideally both. Catan disputes are settled by arm wrestling.",
-      "formPrefillLabel": "Sep 8 - Potluck & Board Games"
-    },
-    {
-      "id": "2026-09-12-flea-market-crawl",
-      "title": "Flea Market Crawl",
-      "date": "2026-09-12",
-      "startTime": "10:00",
-      "endTime": "13:00",
+      "id": "2026-08-26-substack-cafe",
+      "title": "Substack writing",
+      "date": "2026-08-26",
+      "startTime": "14:00",
+      "endTime": "15:30",
       "category": "culture",
       "location": {
-        "name": "Georgetown Trailer Park Mall",
-        "mapsUrl": "https://maps.google.com/?q=Georgetown+Trailer+Park+Mall"
+        "name": "The Larder, Canary Wharf",
+        "mapsUrl": "https://maps.google.com/?q=The+Larder+Canary+Wharf"
       },
-      "notes": "Haggling demonstration included free of charge.",
-      "formPrefillLabel": "Sep 12 - Flea Market Crawl"
+      "notes": "Cafe-marked task - cheap, bring laptop. 10 min cycle from home.",
+      "formPrefillLabel": "Aug 26 - Substack writing"
     },
     {
-      "id": "2026-09-12-pasta-night",
-      "title": "Homemade Pasta Night",
-      "date": "2026-09-12",
-      "startTime": "18:30",
-      "endTime": "21:30",
+      "id": "2026-08-26-sort-photos",
+      "title": "Sort all photos",
+      "date": "2026-08-26",
+      "startTime": "15:30",
+      "endTime": "16:30",
+      "category": "chill",
+      "location": {
+        "name": "Same cafe, Canary Wharf",
+        "mapsUrl": "https://maps.google.com/?q=Canary+Wharf+Cafe"
+      },
+      "notes": "Coffee-flex slot - no extra travel.",
+      "formPrefillLabel": "Aug 26 - Sort all photos"
+    },
+    {
+      "id": "2026-08-26-sunday-roast-scout",
+      "title": "Sunday roast scouting",
+      "date": "2026-08-26",
+      "startTime": "19:00",
+      "endTime": "20:30",
       "category": "food",
       "location": {
-        "name": "My place",
-        "mapsUrl": ""
+        "name": "The Gun, Docklands (E14)",
+        "mapsUrl": "https://maps.google.com/?q=The+Gun+Docklands"
       },
-      "notes": "We make it from scratch, we eat it in ten minutes.",
+      "notes": "Cheap roast research for Sunday. 12 min walk from home.",
       "maxAttendees": 5,
-      "formPrefillLabel": "Sep 12 - Homemade Pasta Night"
+      "formPrefillLabel": "Aug 26 - Sunday roast scouting"
     },
     {
-      "id": "2026-09-16-museum-free-day",
-      "title": "Museum Free-First-Thursday",
-      "date": "2026-09-16",
-      "startTime": "17:00",
+      "id": "2026-08-26-knit",
+      "title": "Knit / crochet",
+      "date": "2026-08-26",
+      "startTime": "20:30",
+      "endTime": "22:00",
+      "category": "chill",
+      "location": {
+        "name": "Home, E14 9WB",
+        "mapsUrl": ""
+      },
+      "notes": "Wind-down at home. Tea provided.",
+      "formPrefillLabel": "Aug 26 - Knit / crochet"
+    },
+    {
+      "id": "2026-08-27-language-library",
+      "title": "Language studies",
+      "date": "2026-08-27",
+      "startTime": "08:30",
+      "endTime": "10:00",
+      "category": "culture",
+      "location": {
+        "name": "Cubitt Town Library, E14",
+        "mapsUrl": "https://maps.google.com/?q=Cubitt+Town+Library"
+      },
+      "notes": "Free, quiet morning. 8 min from home.",
+      "formPrefillLabel": "Aug 27 - Language studies"
+    },
+    {
+      "id": "2026-08-27-shopping",
+      "title": "Shopping + sorting photos",
+      "date": "2026-08-27",
+      "startTime": "11:00",
+      "endTime": "12:30",
+      "category": "chill",
+      "location": {
+        "name": "Canary Wharf / Jubilee Place",
+        "mapsUrl": "https://maps.google.com/?q=Jubilee+Place+Canary+Wharf"
+      },
+      "notes": "Cheap window-shop, no pressure.",
+      "formPrefillLabel": "Aug 27 - Shopping"
+    },
+    {
+      "id": "2026-08-27-ai-project-cafe",
+      "title": "AI project",
+      "date": "2026-08-27",
+      "startTime": "14:00",
+      "endTime": "16:00",
+      "category": "culture",
+      "location": {
+        "name": "Timberyard, Soho (en route to Wardour St)",
+        "mapsUrl": "https://maps.google.com/?q=Timberyard+Soho"
+      },
+      "notes": "Cafe task - cluster near tonight s venue to save travel. Tube E14->Soho ~30 min, leave 16:00.",
+      "formPrefillLabel": "Aug 27 - AI project at cafe"
+    },
+    {
+      "id": "2026-08-27-baijiu",
+      "title": "Baijiu Masterclass - Amathus Soho",
+      "date": "2026-08-27",
+      "startTime": "18:30",
       "endTime": "20:00",
       "category": "culture",
       "location": {
-        "name": "Seattle Art Museum",
-        "mapsUrl": "https://maps.google.com/?q=Seattle+Art+Museum"
+        "name": "Amathus Soho, 113-117 Wardour St, W1F 0UN",
+        "mapsUrl": "https://maps.google.com/?q=Amathus+Soho+Wardour+Street"
       },
-      "notes": "Free entry, expensive gift shop. We look at art and say 'interesting' a lot.",
-      "formPrefillLabel": "Sep 16 - Museum Free-First-Thursday"
+      "notes": "From calendar. Ticketed but tasting-sized.",
+      "maxAttendees": 2,
+      "formPrefillLabel": "Aug 27 - Baijiu Masterclass"
     },
     {
-      "id": "2026-09-20-picnic-frisbee",
-      "title": "Picnic & Frisbee",
-      "date": "2026-09-20",
-      "startTime": "12:00",
-      "endTime": "16:00",
+      "id": "2026-08-27-pub-french-house",
+      "title": "Evening pub",
+      "date": "2026-08-27",
+      "startTime": "20:30",
+      "endTime": "22:30",
       "category": "chill",
       "location": {
-        "name": "Volunteer Park",
-        "mapsUrl": "https://maps.google.com/?q=Volunteer+Park+Seattle"
+        "name": "The French House, Soho",
+        "mapsUrl": "https://maps.google.com/?q=The+French+House+Soho"
       },
-      "notes": "Snacks provided. Athletic ability not required, nor expected.",
-      "formPrefillLabel": "Sep 20 - Picnic & Frisbee"
+      "notes": "5 min walk from Amathus, cheapish pints. Second pub optional - same block.",
+      "formPrefillLabel": "Aug 27 - Evening pub Soho"
+    },
+    {
+      "id": "2026-08-28-richmond-park",
+      "title": "Richmond Park",
+      "date": "2026-08-28",
+      "startTime": "08:30",
+      "endTime": "11:30",
+      "category": "outdoors",
+      "location": {
+        "name": "Richmond Park, Kingston Gate",
+        "mapsUrl": "https://maps.google.com/?q=Richmond+Park+Kingston+Gate"
+      },
+      "notes": "Early to avoid heat. Train E14->Richmond ~55 min, leave 07:30 buffer. Free.",
+      "maxAttendees": 6,
+      "formPrefillLabel": "Aug 28 - Richmond Park"
+    },
+    {
+      "id": "2026-08-28-putney-ferry-lunch",
+      "title": "Ferry to Putney + lunch",
+      "date": "2026-08-28",
+      "startTime": "12:00",
+      "endTime": "13:30",
+      "category": "outdoors",
+      "location": {
+        "name": "Thames Clippers, Putney Pier",
+        "mapsUrl": "https://maps.google.com/?q=Putney+Pier"
+      },
+      "notes": "From Richmond 20 min bus to Putney. River bus day ticket - cheap.",
+      "formPrefillLabel": "Aug 28 - Ferry to Putney"
+    },
+    {
+      "id": "2026-08-28-gambling-project",
+      "title": "Gambling project",
+      "date": "2026-08-28",
+      "startTime": "15:30",
+      "endTime": "17:00",
+      "category": "culture",
+      "location": {
+        "name": "Mare Street Market, Hackney - or local E14 cafe",
+        "mapsUrl": "https://maps.google.com/?q=Mare+Street+Market"
+      },
+      "notes": "Cafe task on way back east. Ferry Putney->Greenwich ~40 min, then 15 min to cafe.",
+      "formPrefillLabel": "Aug 28 - Gambling project"
+    },
+    {
+      "id": "2026-08-28-paper-mache",
+      "title": "Paper mache",
+      "date": "2026-08-28",
+      "startTime": "19:00",
+      "endTime": "21:00",
+      "category": "chill",
+      "location": {
+        "name": "Home, E14 9WB",
+        "mapsUrl": ""
+      },
+      "notes": "Home, no travel, cheap.",
+      "formPrefillLabel": "Aug 28 - Paper mache"
+    },
+    {
+      "id": "2026-08-29-write-book",
+      "title": "Write a book",
+      "date": "2026-08-29",
+      "startTime": "09:00",
+      "endTime": "11:00",
+      "category": "culture",
+      "location": {
+        "name": "Royale Cafe, Deptford",
+        "mapsUrl": "https://maps.google.com/?q=Royale+Cafe+Deptford"
+      },
+      "notes": "Cafe task, close to tonights venue (Studio 338 nearby).",
+      "formPrefillLabel": "Aug 29 - Write a book"
+    },
+    {
+      "id": "2026-08-29-art-classes",
+      "title": "Art classes",
+      "date": "2026-08-29",
+      "startTime": "11:30",
+      "endTime": "13:00",
+      "category": "culture",
+      "location": {
+        "name": "Art Hub, Deptford",
+        "mapsUrl": "https://maps.google.com/?q=Art+Hub+Deptford"
+      },
+      "notes": "Cheap community class, 5 min from cafe.",
+      "formPrefillLabel": "Aug 29 - Art classes"
+    },
+    {
+      "id": "2026-08-29-coffee-festival",
+      "title": "Global Coffee Culture Festival",
+      "date": "2026-08-29",
+      "startTime": "13:30",
+      "endTime": "18:00",
+      "category": "culture",
+      "location": {
+        "name": "Studio 338, Greenwich",
+        "mapsUrl": "https://maps.google.com/?q=Studio+338+Greenwich"
+      },
+      "notes": "Dice event https://dice.fm/event/nv59e5 - daytime rave, ticketed. 15 min from Deptford.",
+      "maxAttendees": 4,
+      "formPrefillLabel": "Aug 29 - Global Coffee Culture Festival"
+    },
+    {
+      "id": "2026-08-29-volunteer",
+      "title": "Volunteer",
+      "date": "2026-08-29",
+      "startTime": "19:00",
+      "endTime": "20:30",
+      "category": "chill",
+      "location": {
+        "name": "Greenwich Food Bank / local charity",
+        "mapsUrl": "https://maps.google.com/?q=Greenwich+Volunteer"
+      },
+      "notes": "Evening slot, nearby, free.",
+      "formPrefillLabel": "Aug 29 - Volunteer"
+    },
+    {
+      "id": "2026-08-29-research-stocks",
+      "title": "Research stocks",
+      "date": "2026-08-29",
+      "startTime": "20:30",
+      "endTime": "22:00",
+      "category": "culture",
+      "location": {
+        "name": "Home, E14 9WB (or cafe if energy)",
+        "mapsUrl": ""
+      },
+      "notes": "Wind-down, cafe-optional.",
+      "formPrefillLabel": "Aug 29 - Research stocks"
+    },
+    {
+      "id": "2026-08-30-hampstead",
+      "title": "Hampstead Heath",
+      "date": "2026-08-30",
+      "startTime": "09:30",
+      "endTime": "12:00",
+      "category": "outdoors",
+      "location": {
+        "name": "Hampstead Heath, Parliament Hill",
+        "mapsUrl": "https://maps.google.com/?q=Hampstead+Heath+Parliament+Hill"
+      },
+      "notes": "Free. Tube E14->Hampstead ~45 min, leave 08:40.",
+      "maxAttendees": 6,
+      "formPrefillLabel": "Aug 30 - Hampstead Heath"
+    },
+    {
+      "id": "2026-08-30-coffee-hampstead",
+      "title": "Coffee + language catch-up",
+      "date": "2026-08-30",
+      "startTime": "12:00",
+      "endTime": "13:00",
+      "category": "chill",
+      "location": {
+        "name": "Kenwood Brew, Hampstead",
+        "mapsUrl": "https://maps.google.com/?q=Kenwood+Brew+Hampstead"
+      },
+      "notes": "Coffee-flex, same heath area.",
+      "formPrefillLabel": "Aug 30 - Coffee at Hampstead"
+    },
+    {
+      "id": "2026-08-30-hadiyah",
+      "title": "Hadiyah engagement party",
+      "date": "2026-08-30",
+      "startTime": "15:00",
+      "endTime": "18:00",
+      "category": "culture",
+      "location": {
+        "name": "TBD (see invite)",
+        "mapsUrl": ""
+      },
+      "notes": "From calendar - kept. Buffer 13:00-15:00 travel south.",
+      "formPrefillLabel": "Aug 30 - Hadiyah engagement party"
+    },
+    {
+      "id": "2026-08-30-themed-gathering",
+      "title": "Host a themed gathering",
+      "date": "2026-08-30",
+      "startTime": "19:30",
+      "endTime": "22:00",
+      "category": "games",
+      "location": {
+        "name": "Home, E14 9WB",
+        "mapsUrl": ""
+      },
+      "notes": "Cheap, home. BYO.",
+      "maxAttendees": 8,
+      "formPrefillLabel": "Aug 30 - Host a themed gathering"
+    },
+    {
+      "id": "2026-08-30-pub-pineapple",
+      "title": "Late pub (optional)",
+      "date": "2026-08-30",
+      "startTime": "22:00",
+      "endTime": "23:30",
+      "category": "chill",
+      "location": {
+        "name": "The Ferry House, Isle of Dogs",
+        "mapsUrl": "https://maps.google.com/?q=The+Ferry+House+Isle+of+Dogs"
+      },
+      "notes": "5 min from home, cheap, second pub slot.",
+      "formPrefillLabel": "Aug 30 - Late pub"
+    },
+    {
+      "id": "2026-08-31-yoga-vicky-park",
+      "title": "Yoga at Victoria Park",
+      "date": "2026-08-31",
+      "startTime": "08:30",
+      "endTime": "09:30",
+      "category": "chill",
+      "location": {
+        "name": "Victoria Park, E9",
+        "mapsUrl": "https://maps.google.com/?q=Victoria+Park+London"
+      },
+      "notes": "20 min from E14, free, before carnival.",
+      "formPrefillLabel": "Aug 31 - Yoga at Victoria Park"
+    },
+    {
+      "id": "2026-08-31-carnival",
+      "title": "Notting Hill Carnival + Bermondsey Carnival",
+      "date": "2026-08-31",
+      "startTime": "11:00",
+      "endTime": "16:00",
+      "category": "culture",
+      "location": {
+        "name": "Notting Hill, W11",
+        "mapsUrl": "https://maps.google.com/?q=Notting+Hill+Carnival"
+      },
+      "notes": "From calendar. Free, bring water. Tube ~50 min from E14.",
+      "maxAttendees": 6,
+      "formPrefillLabel": "Aug 31 - Notting Hill Carnival"
+    },
+    {
+      "id": "2026-08-31-print-pictures",
+      "title": "Print pictures for scrapbook",
+      "date": "2026-08-31",
+      "startTime": "17:30",
+      "endTime": "19:00",
+      "category": "chill",
+      "location": {
+        "name": "Home, E14 9WB",
+        "mapsUrl": ""
+      },
+      "notes": "Chill evening after carnival.",
+      "formPrefillLabel": "Aug 31 - Print pictures for scrapbook"
+    },
+    {
+      "id": "2026-08-31-birdwatching",
+      "title": "Evening birdwatching / wind-down",
+      "date": "2026-08-31",
+      "startTime": "19:30",
+      "endTime": "20:30",
+      "category": "outdoors",
+      "location": {
+        "name": "Mudchute Farm, E14",
+        "mapsUrl": "https://maps.google.com/?q=Mudchute+Farm+E14"
+      },
+      "notes": "5 min from home, free, light evening.",
+      "formPrefillLabel": "Aug 31 - Evening birdwatching"
     }
   ]
 }
