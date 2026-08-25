@@ -1,0 +1,7 @@
+{
+  "database": "dolt",
+  "backend": "dolt",
+  "dolt_mode": "embedded",
+  "dolt_database": "unempoyment_calendar",
+  "project_id": "52fb9df0-9f0e-42b9-84fa-53b674f1e51e"
+}
