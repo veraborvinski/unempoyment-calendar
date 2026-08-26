@@ -142,7 +142,7 @@
       "attendees": ["Vera"]
     },
     {
-      "id": "2026-08-27-walk",
+      "id": "2026-08-27-murger-han",
       "title": "Murger Han",
       "date": "2026-08-27",
       "startTime": "17:30",
@@ -188,7 +188,7 @@
       "id": "2026-08-28-ai",
       "title": "Work on AI model",
       "date": "2026-08-28",
-      "startTime": "9:30",
+      "startTime": "09:30",
       "endTime": "12:30",
       "category": "creative",
       "location": {
@@ -212,10 +212,10 @@
       "notes": "Free entry, museum for looking at old furniture",
       "attendees": ["Vera"]
     },
-     {
-      "id": "2026-08-28-cafe",
-      "title": "Substack writing",
-      "date": "2026-08-28",
+      {
+       "id": "2026-08-28-cafe",
+       "title": "Substack writing",
+       "date": "2026-08-28",
       "startTime": "14:30",
       "endTime": "17:00",
       "category": "creative",
