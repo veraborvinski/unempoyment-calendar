@@ -12,8 +12,7 @@ type Activity = {
   location?: { name?: string; mapsUrl?: string };
   notes?: string;
   maxAttendees?: number;
-  attendeesFull?: boolean;
-  formPrefillLabel?: string;
+  attendees: string[];
 };
 
 const all = events.activities as Activity[];
@@ -51,9 +50,6 @@ function joinUrl(act: Activity): string {
   const params = new URLSearchParams();
   params.set("usp", "pp_url");
   const entryId = String(formConfig.activityEntryId ?? "").trim();
-  if (entryId && act.formPrefillLabel) {
-    params.set(`entry.${entryId}`, act.formPrefillLabel);
-  }
   return `${base}?${params.toString()}`;
 }
 ---
@@ -156,12 +152,13 @@ function joinUrl(act: Activity): string {
                   </p>
                 )}
                 {act.notes && <p class="fineprint">{act.notes}</p>}
+                {act.attendees && <p class="fineprint">Coming: {act.attendees}</p>}
                 <footer class="act-foot">
-                  {act.maxAttendees && !act.attendeesFull && (
-                    <span class="cap">ROOM FOR {act.maxAttendees}</span>
+                  {act.maxAttendees && !(act.attendees.length >= act.maxAttendees) && (
+                    <span class="cap">ROOM FOR {act.maxAttendees - act.attendees.length}</span>
                   )}
                   <div class="stub-row">
-                    {joinUrl(act) ? (
+                    {false ? (
                       <a
                         class="stub"
                         href={joinUrl(act)}
@@ -181,13 +178,13 @@ function joinUrl(act: Activity): string {
                         in.
                       </p>
                     )}
-                    {act.attendeesFull && (
+                    {(act.attendees.length >= act.maxAttendees) && (
                       <p class="nostub">
                         Sold out, but you can try bribery at the door.
                       </p>
                     )}
                   </div>
-                  {act.attendeesFull && (
+                  {(act.attendees.length >= act.maxAttendees) && (
                     <span class="soldout" aria-label="This event is full">
                       SOLD OUT
                     </span>
