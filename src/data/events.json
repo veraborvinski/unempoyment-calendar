@@ -61,7 +61,7 @@
       "title": "Cocktails :>",
       "date": "2026-08-26",
       "startTime": "23:00",
-      "endTime": "00:00",
+      "endTime": "23:59",
       "category": "drinks",
       "location": {
         "name": "Basement Sate",
@@ -175,7 +175,7 @@
       "title": "Cocktails",
       "date": "2026-08-27",
       "startTime": "21:00",
-      "endTime": "00:00",
+      "endTime": "23:59",
       "category": "drinks",
       "location": {
         "name": "SOMA Soho",
