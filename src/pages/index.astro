@@ -93,8 +93,9 @@ function joinUrl(act: Activity): string {
         full tour. Find a show, tear a stub, show up.
       </p>
     </header>
-
+    <button id="toggle-past" class="toggle-past" hidden>Show past events</button>
     <main>
+
       {
         days.length === 0 && (
           <div class="empty-box">
@@ -152,39 +153,24 @@ function joinUrl(act: Activity): string {
                   </p>
                 )}
                 {act.notes && <p class="fineprint">{act.notes}</p>}
-                {act.attendees && <p class="fineprint">Coming: {act.attendees}</p>}
+                {act.attendees?.length ? <p class="fineprint">Coming: {act.attendees.join(", ")}</p> : null}
                 <footer class="act-foot">
-                  {act.maxAttendees && !(act.attendees.length >= act.maxAttendees) && (
-                    <span class="cap">ROOM FOR {act.maxAttendees - act.attendees.length}</span>
+                  {act.maxAttendees && !((act.attendees?.length ?? 0) >= act.maxAttendees) && (
+                    <span class="cap">ROOM FOR {act.maxAttendees - (act.attendees?.length ?? 0)}</span>
                   )}
                   <div class="stub-row">
-                    {false ? (
-                      <a
-                        class="stub"
-                        href={joinUrl(act)}
-                        target="_blank"
-                        rel="noopener"
-                      >
-                        <svg class="scissors-sm" viewBox="0 0 20 20" aria-hidden="true">
-                          <circle cx="5" cy="7" r="2.4" fill="none" stroke-width="2" />
-                          <circle cx="5" cy="14" r="2.4" fill="none" stroke-width="2" />
-                          <path d="M7.2 8.4 17 15M7.2 12.6 17 6" fill="none" stroke-width="2" stroke-linecap="round" />
-                        </svg>
-                        COUNT ME IN
-                      </a>
-                    ) : (
+                    {!(act.attendees?.length >= (act.maxAttendees ?? Infinity)) || !act.maxAttendees ? (
                       <p class="nostub">
-                        Box office opens soon - text me and I'll pencil you
-                        in.
+                        Text me to join — I'll add you above
                       </p>
-                    )}
-                    {(act.attendees.length >= act.maxAttendees) && (
+                    ) : null}
+                    {(act.maxAttendees && act.attendees?.length >= act.maxAttendees) && (
                       <p class="nostub">
                         Sold out, but you can try bribery at the door.
                       </p>
                     )}
                   </div>
-                  {(act.attendees.length >= act.maxAttendees) && (
+                  {(act.maxAttendees && act.attendees?.length >= act.maxAttendees) && (
                     <span class="soldout" aria-label="This event is full">
                       SOLD OUT
                     </span>
@@ -210,13 +196,15 @@ function joinUrl(act: Activity): string {
       const tomorrow = new Date(today);
       tomorrow.setDate(tomorrow.getDate() + 1);
 
+      const pastDays: HTMLElement[] = [];
       document.querySelectorAll<HTMLElement>(".day").forEach((day) => {
         const raw = day.dataset.date ?? "";
         const d = new Date(`${raw}T00:00:00`);
         if (Number.isNaN(d.getTime())) return;
 
         if (d < today) {
-          day.classList.add("past");
+          day.classList.add("past", "is-hidden");
+          pastDays.push(day);
           return;
         }
         const badge = day.querySelector(".relbadge");
@@ -229,6 +217,20 @@ function joinUrl(act: Activity): string {
           badge.textContent = "TOMORROW";
         }
       });
+
+      const toggle = document.getElementById("toggle-past") as HTMLButtonElement | null;
+      if (toggle && pastDays.length) {
+        toggle.hidden = false;
+        toggle.textContent = `Show past events (${pastDays.length})`;
+        let shown = false;
+        toggle.addEventListener("click", () => {
+          shown = !shown;
+          pastDays.forEach((d) => d.classList.toggle("is-hidden", !shown));
+          toggle.textContent = shown
+            ? `Hide past events (${pastDays.length})`
+            : `Show past events (${pastDays.length})`;
+        });
+      }
     </script>
 
     <style>
@@ -403,6 +405,31 @@ function joinUrl(act: Activity): string {
       .day.past {
         opacity: 0.45;
         filter: saturate(0.4) contrast(0.92);
+      }
+
+      .day.past.is-hidden {
+        display: none;
+      }
+
+      .toggle-past {
+        display: block;
+        margin: 1.2rem auto 0;
+        width: fit-content;
+        font-family: "Courier Prime", monospace;
+        font-weight: 700;
+        font-size: 0.85rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        background: var(--card);
+        color: var(--ink);
+        border: 2.5px solid var(--ink);
+        padding: 0.5rem 1.1rem;
+        cursor: pointer;
+        transform: rotate(-0.6deg);
+      }
+
+      .toggle-past[hidden] {
+        display: none;
       }
 
       .day.past .day-head::after {
