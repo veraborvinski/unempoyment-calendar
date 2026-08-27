@@ -238,7 +238,7 @@
         "mapsUrl": "https://maps.app.goo.gl/aksbAXvWcjmSj5V17"
       },
       "notes": "Pres for the concert :>",
-      "attendees": ["Vera"]
+      "attendees": ["Vera", "Tangil"]
     },
     {
       "id": "2026-08-28-gig",
@@ -253,6 +253,105 @@
       },
       "notes": "Free tickets through Eventbrite: https://www.eventbrite.co.uk/e/louis-velasquez-live-tickets-1997717211958?utm_experiment=test_share_listing&aff=ebdsshios&sg=c13055fa647c87b844c0bff05a20a397264bb949ea5e056d34412dbc4f6559c1a3ef79a62b8c1f910c1672e1d14ffb58e777339576aa66d4d8c4f217d87b24d732aef9a34a8bc6a488f17bbe9a29",
       "attendees": ["Vera", "Tangil"]
+    },
+    {
+      "id": "2026-08-30-nails",
+      "title": "Nails<3",
+      "date": "2026-08-30",
+      "startTime": "10:30",
+      "endTime": "11:30",
+      "category": "beauty",
+      "location": {
+        "name": "Vivian Nails Beauty",
+        "mapsUrl": "https://maps.app.goo.gl/AFFKAc4j466dxsyb9"
+      },
+      "notes": "Cash only, booking on their website but they take walk ins. £30 BIAB",
+      "attendees": ["Vera"]
+    },
+    {
+      "id": "2026-08-30-bible",
+      "title": "Bible study",
+      "date": "2026-08-30",
+      "startTime": "11:30",
+      "endTime": "13:30",
+      "category": "creative",
+      "location": {
+        "name": "Sip & Petals",
+        "mapsUrl": "https://maps.app.goo.gl/J8Wenp7gUZhoHXZr8"
+      },
+      "notes": "Might also head to a local church if they're open",
+      "attendees": ["Vera"]
+    },
+    {
+      "id": "2026-08-30-volunteering",
+      "title": "Volunteering",
+      "date": "2026-08-30",
+      "startTime": "13:30",
+      "endTime": "16:00",
+      "category": "volunteering",
+      "location": {
+        "name": "Bow Foodbank",
+        "mapsUrl": "https://maps.app.goo.gl/U3GZmTK5XB2pf9kR6"
+      },
+      "notes": "Help out at the foodbank, preregistration required through volunteero (more on their website)",
+      "attendees": ["Vera", "Tangil"]
+    },
+    {
+      "id": "2026-08-30-eeeels",
+      "title": "Eating eals"
+      "date": "2026-08-30",
+      "startTime": "16:00",
+      "endTime": "17:00",
+      "category": "food",
+      "location": {
+        "name": "G Kelly",
+        "mapsUrl": "https://maps.app.goo.gl/bNUKoeiidR94VE4n6"
+      },
+      "notes": "Lovely delicious stewed eel",
+      "attendees": ["Vera", "Tangil"]
+    },
+    {
+      "id": "2026-08-30-party",
+      "title": "Hadiyah's anniversary",
+      "date": "2026-08-30",
+      "startTime": "17:00",
+      "endTime": "22:00",
+      "category": "party",
+      "location": {
+        "name": "Eliza Knight House",
+        "mapsUrl": "https://maps.app.goo.gl/mcTmyQg2aXPisDZGA"
+      },
+      "notes": "Invite only!",
+      "attendees": ["Vera", "Tangil", "Anastasiya"],
+      "maxAttendees": 3
+    },
+    {
+      "id": "2026-08-31-carnival",
+      "title": "Notting Hill Carnival",
+      "date": "2026-08-31",
+      "startTime": "12:00",
+      "endTime": "19:00",
+      "category": "culture",
+      "location": {
+        "name": "Notting Hill",
+        "mapsUrl": "https://maps.app.goo.gl/pT6qahvFvtn5CoEE6"
+      },
+      "notes": "Cultural experience!",
+      "attendees": ["Vera", "Tangil"]
+    },
+    {
+      "id": "2026-09-01-hike",
+      "title": "Seven Sisters Hike",
+      "date": "2026-09-01",
+      "startTime": "07:24",
+      "endTime": "20:35",
+      "category": "nature",
+      "location": {
+        "name": "Seven Sisters",
+        "mapsUrl": "https://maps.app.goo.gl/L7CzWGzrrs89tXsH9"
+      },
+      "notes": "£46 open return from London Bridge",
+      "attendees": ["Vera"]
     }
   ]
 }
